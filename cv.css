@@ -1,0 +1,306 @@
+:root{
+  --bg:#f5f2ef;
+  --paper:#ffffff;
+  --ink:#141414;
+  --muted:#5b5b5b;
+  --muted2:#7a7a7a;
+  --line:rgba(0,0,0,.10);
+  --accent:#b07b7b;
+  --accent2:#d7b0b0;
+  --shadow:0 18px 50px rgba(0,0,0,.12);
+  --radius:22px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+
+/* když JS nastaví hidden, chceme jistotu, že element zmizí všude */
+[hidden]{display:none !important}
+
+body{
+  margin:0;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,"Noto Sans",sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(1200px 700px at 70% 10%, rgba(176,123,123,.18), transparent 60%),
+    radial-gradient(900px 600px at 10% 70%, rgba(215,176,176,.18), transparent 55%),
+    linear-gradient(180deg, #fbfaf9, var(--bg));
+}
+
+/* přepínání jazyků přes html[data-lang] */
+[data-lang="cs"] [data-lang="en"]{display:none}
+[data-lang="en"] [data-lang="cs"]{display:none}
+
+/* pojistka: ať se nikdy nezobrazují oba print buttony současně (i bez JS) */
+html[data-lang="cs"] #printBtnEn{display:none}
+html[data-lang="en"] #printBtn{display:none}
+
+.cvApp{min-height:100%; padding:18px}
+.cvTopbar{
+  max-width:1100px;
+  margin:0 auto 14px;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:center;
+}
+.topbarLeft,.topbarRight{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+.topBtn{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.75);
+  backdrop-filter: blur(10px);
+  padding:10px 12px;
+  border-radius:999px;
+  font-weight:800;
+  letter-spacing:.02em;
+  color:var(--ink);
+  cursor:pointer;
+  text-decoration:none;
+}
+.topBtn.primary{
+  background:var(--accent);
+  color:#fff;
+  border-color:transparent;
+}
+.topBtn.active{
+  outline:2px solid rgba(176,123,123,.35);
+  border-color:rgba(176,123,123,.45);
+}
+
+.cvSheet{
+  position:relative;
+  max-width:1100px;
+  margin:0 auto;
+  background:var(--paper);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  display:grid;
+  grid-template-rows:auto 1fr;
+}
+
+.cvBg{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 72% 18%, rgba(176,123,123,.18), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,.02), transparent 35%),
+    repeating-linear-gradient(135deg, rgba(0,0,0,.015), rgba(0,0,0,.015) 8px, transparent 8px, transparent 18px);
+  opacity:.9;
+}
+
+.cvHeader, .cvBody{position:relative; z-index:1}
+
+.cvHeader{
+  display:grid;
+  grid-template-columns: 1.05fr 1.45fr;
+  gap:18px;
+  padding:24px 24px 18px;
+  border-bottom:1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(176,123,123,.10), transparent 45%),
+    linear-gradient(180deg, rgba(0,0,0,.02), transparent 55%);
+}
+
+.headerPhoto{display:flex;justify-content:center;align-items:flex-start}
+.photoFrame{
+  width:320px;
+  height:420px;
+  border-radius:200px;
+  overflow:hidden;
+  border:10px solid rgba(255,255,255,.92);
+  box-shadow:0 18px 46px rgba(0,0,0,.14);
+  background:#eee;
+}
+.photo{width:100%;height:100%;object-fit:cover;display:block}
+
+.headerInfo{display:flex;align-items:flex-start}
+.nameBlock{width:100%}
+.nameLine{
+  font-family:"Segoe Script","Bradley Hand","Snell Roundhand","Apple Chancery",cursive;
+  font-size:56px;
+  line-height:1;
+  letter-spacing:-.02em;
+  color:#1b1b1b;
+}
+.roleLine{
+  margin-top:12px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  font-weight:950;
+  color:var(--accent);
+}
+.contactLine{
+  margin-top:16px;
+  background:rgba(176,123,123,.85);
+  color:#fff;
+  border-radius:999px;
+  padding:10px 16px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+  font-weight:750;
+  width:fit-content;
+  max-width:100%;
+}
+.contactLine .sep{opacity:.75}
+
+.summaryCard{
+  margin-top:16px;
+  border:1px solid rgba(176,123,123,.25);
+  background:rgba(255,255,255,.78);
+  backdrop-filter: blur(10px);
+  border-radius:26px;
+  padding:16px 16px;
+}
+.summary{
+  margin:0;
+  color:var(--muted);
+  line-height:1.55;
+  font-weight:650;
+}
+
+.cvBody{
+  display:grid;
+  grid-template-columns: 1.05fr 1.45fr;
+  gap:0;
+}
+
+.cvLeft{
+  padding:18px 22px 26px 26px;
+  border-right:1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(176,123,123,.06), transparent 38%),
+    linear-gradient(180deg, rgba(0,0,0,.02), transparent 30%);
+}
+
+.cvRight{
+  padding:18px 28px 26px 24px;
+  background:
+    radial-gradient(900px 520px at 70% 20%, rgba(176,123,123,.08), transparent 55%),
+    linear-gradient(180deg, rgba(0,0,0,.015), transparent 32%);
+}
+
+.block{margin-top:18px}
+.blockTitle{
+  margin:0 0 10px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-size:.92rem;
+  font-weight:950;
+}
+
+.item{padding:10px 0; border-top:1px solid var(--line)}
+.item:first-of-type{border-top:0}
+.itemTitle{font-weight:900; color:var(--accent); margin-bottom:4px}
+
+.job{padding:12px 0; border-top:1px solid var(--line)}
+.job:first-of-type{border-top:0}
+.jobHead{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 10px;
+  align-items:baseline;
+}
+.jobRole{font-weight:950; color:var(--accent)}
+.jobTime{color:var(--muted2); font-weight:850}
+.jobBullets{
+  margin:10px 0 0;
+  padding-left:18px;
+  color:var(--muted);
+  display:grid;
+  gap:7px;
+  line-height:1.35;
+  font-weight:650;
+}
+
+.grid2{
+  display:grid;
+  gap:14px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.rightBlock{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.72);
+  backdrop-filter: blur(10px);
+  border-radius:22px;
+  padding:14px 14px;
+}
+.span2{grid-column:1 / -1}
+
+.barRow{display:grid; gap:8px; margin-top:10px}
+.barLabel{color:var(--muted); font-weight:750}
+.bar{
+  height:12px;
+  border-radius:999px;
+  background:rgba(0,0,0,.06);
+  overflow:hidden;
+}
+.fill{
+  height:100%;
+  border-radius:999px;
+  background:linear-gradient(90deg, var(--accent), var(--accent2));
+}
+
+.bullets{
+  margin:10px 0 0;
+  padding-left:18px;
+  color:var(--muted);
+  display:grid;
+  gap:8px;
+  line-height:1.45;
+  font-weight:650;
+}
+
+.tags{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+.tag{
+  padding:8px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.8);
+  font-weight:850;
+  color:#262626;
+}
+
+.twoCols{
+  margin-top:10px;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:10px 18px;
+}
+
+@media (max-width: 980px){
+  .cvHeader{grid-template-columns:1fr}
+  .cvBody{grid-template-columns:1fr}
+  .cvLeft{border-right:0;border-bottom:1px solid var(--line)}
+  .grid2{grid-template-columns:1fr}
+  .span2{grid-column:auto}
+  .twoCols{grid-template-columns:1fr}
+  .nameLine{font-size:46px}
+  .photoFrame{width:280px;height:380px;border-radius:190px}
+}
+
+@media (max-width: 520px){
+  .cvHeader{padding:18px 16px 16px}
+  .cvLeft{padding:16px}
+  .cvRight{padding:16px}
+  .photoFrame{width:240px;height:330px;border-radius:170px}
+  .contactLine{width:100%;justify-content:center}
+}
+
+@media print{
+  @page{ margin: 12mm; }
+  body{background:#fff}
+  .cvApp{padding:0}
+  .cvTopbar{display:none}
+  .cvSheet{box-shadow:none;border-radius:0;max-width:none}
+  .cvBg{opacity:.55}
+}
