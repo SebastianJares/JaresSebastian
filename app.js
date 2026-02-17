@@ -139,7 +139,7 @@ aboutP2: `What I value most about myself is that I’m an extremely versatile pr
   const XP = {
     cs: [
       {
-        when: "Současnost",
+        when: "2022 - současnost",
         role: "Koordinátor vzdělávání",
         meta: "Kompletní zastřešení vzdělávání ve firmě",
         bullets: [
@@ -151,7 +151,7 @@ aboutP2: `What I value most about myself is that I’m an extremely versatile pr
         ]
       },
       {
-        when: "3 roky",
+        when: 2019 - 2022",
         role: "Vedoucí provozu",
         meta: "Provoz & péče o kurýry",
         bullets: [
