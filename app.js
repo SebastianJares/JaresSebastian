@@ -140,11 +140,11 @@ aboutP2: `What I value most about myself is that I’m an extremely versatile pr
     cs: [
       {
         when: "2022 - současnost",
-        role: "Koordinátor vzdělávání",
+        role: "DPD - Koordinátor vzdělávání",
         meta: "Kompletní zastřešení vzdělávání ve firmě",
         bullets: [
-          "Kompletní zastřešení vzdělávání ve firmě (hard/soft skills, onboarding).",
-          "Vedení týmu ~20 trenérů napříč ČR (metodika, standardy, školení trenérů).",
+          "Realizace a tvorba vzdělávání ve firmě (hard/soft skills, onboarding).",
+          "Koordinace a metodická podpora ~20 trenérů napříč ČR (metodika, standardy, školení trenérů).",
           "Zpětná vazba, testovací nástroje a vyhodnocování dopadu školení.",
           "Modernizace a automatizace (skripty/šablony), využití AI v praxi.",
           "Edukativní obsah včetně grafiky (manuály, checklisty, komiks)."
@@ -152,7 +152,7 @@ aboutP2: `What I value most about myself is that I’m an extremely versatile pr
       },
       {
         when: 2019 - 2022",
-        role: "Vedoucí provozu",
+        role: "DPD - Vedoucí provozu",
         meta: "Provoz & péče o kurýry",
         bullets: [
           "Zastřešení péče o ~50 kurýrů (kvalita, procesy, standardy).",
