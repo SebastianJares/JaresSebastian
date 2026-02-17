@@ -5,10 +5,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Webový životopis</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Caveat:wght@600;700&family=League+Spartan:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+
+  <!-- ✅ cache-busting: když byl problém cache, tohle ho okamžitě vyřeší -->
+  <link rel="stylesheet" href="styles.css?v=20260217-1" />
 </head>
 
 <body data-lang="cs">
@@ -26,10 +29,8 @@
         <span class="langToggle__thumb" aria-hidden="true"></span>
       </div>
 
-      <!-- PDF button (otevře samostatnou stránku s CV – cv.html) -->
       <a class="pdfBtn" href="cv.html" target="_blank" rel="noopener noreferrer" aria-label="Otevřít PDF životopis">
         <span class="pdfBtn__icon" aria-hidden="true">
-          <!-- jednoduchá ikona dokumentu -->
           <svg viewBox="0 0 24 24">
             <path d="M7 2h7l5 5v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm7 1.5V8h4.5L14 3.5z"/>
             <path d="M8 12h8v1.6H8V12zm0 3h8v1.6H8V15zm0 3h6v1.6H8V18z"/>
@@ -91,7 +92,6 @@
           </span>
         </a>
 
-        <!-- ✅ LinkedIn (upraveno) -->
         <a class="orbit__item" href="https://www.linkedin.com/in/sebastian-jares-994a06221" target="_blank" rel="noopener noreferrer" data-label="LinkedIn" aria-label="LinkedIn">
           <span class="orbit__icon orbit__icon--text" aria-hidden="true">in</span>
         </a>
@@ -183,8 +183,6 @@
         <button class="skillLogo" type="button" data-label="Canva" aria-label="Canva">
           <img src="assets/icons/canva-icon.png" alt="" loading="lazy">
         </button>
-
-        <!-- ✅ Office 365 - teď stejně jako ostatní ikony (tvůj vlastní obrázek) -->
         <button class="skillLogo" type="button" data-label="Office 365" aria-label="Office 365">
           <img src="assets/icons/office-365-icon.png" alt="" loading="lazy">
         </button>
@@ -198,7 +196,6 @@
       </div>
 
       <div class="work__list">
-
         <article class="workRow reveal" data-reveal data-work="w1">
           <button class="workMedia" type="button" data-work="w1" aria-label="Otevřít" data-img="assets/work/01-social.jpg">
             <img src="assets/work/Návrh bez názvu.png" alt="" loading="lazy">
@@ -226,7 +223,7 @@
 
         <article class="workRow workRow--reverse reveal" data-reveal data-work="w2">
           <button class="workMedia" type="button" data-work="w2" aria-label="Otevřít" data-img="assets/work/02-fagota.jpg">
-             <img src="assets/work/komiks_trailer_kolaz.png" alt="" loading="lazy">
+            <img src="assets/work/komiks_trailer_kolaz.png" alt="" loading="lazy">
           </button>
           <div class="workText" data-work="w2">
             <div class="workKicker"></div>
@@ -251,7 +248,7 @@
 
         <article class="workRow reveal" data-reveal data-work="w3">
           <button class="workMedia" type="button" data-work="w3" aria-label="Otevřít" data-img="assets/work/03-makame.jpg">
-             <img src="assets/work/prezentace.png" alt="" loading="lazy">
+            <img src="assets/work/prezentace.png" alt="" loading="lazy">
           </button>
           <div class="workText" data-work="w3">
             <div class="workKicker"></div>
@@ -276,7 +273,7 @@
 
         <article class="workRow workRow--reverse reveal" data-reveal data-work="w4">
           <button class="workMedia" type="button" data-work="w4" aria-label="Otevřít" data-img="assets/work/04-laurent.jpg">
-             <img src="assets/work/web.png" alt="" loading="lazy">
+            <img src="assets/work/web.png" alt="" loading="lazy">
           </button>
           <div class="workText" data-work="w4">
             <div class="workKicker"></div>
@@ -316,7 +313,6 @@
         </div>
         <div class="contact__row">
           <span class="contact__label">LinkedIn</span>
-          <!-- ✅ LinkedIn (upraveno) -->
           <a class="contact__link" href="https://www.linkedin.com/in/sebastian-jares-994a06221" target="_blank" rel="noopener noreferrer" data-i18n="linkedinOpen">Otevřít profil</a>
         </div>
       </div>
@@ -327,6 +323,7 @@
     </footer>
   </main>
 
-  <script src="app.js"></script>
+  <!-- ✅ cache-busting + defer: aby se to nespouštělo dřív než se načte DOM, a aby se nepoužila stará cache -->
+  <script src="app.js?v=20260217-1" defer></script>
 </body>
 </html>
