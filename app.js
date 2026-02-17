@@ -9,8 +9,8 @@
       pdfBtn: "PDF",
 
       aboutTitle: "O mně",
-      aboutP1: `Baví mě hledat nové způsoby, jak věci dělat chytřeji a jednodušeji. Jsem zvědavý, dravý a ambiciózní samouk – rychle se učím, jsem flexibilní, kreativní a komunikativní. Zároveň jsem si vědom i slabších stránek: občas dokážu být zbrklý a puntičkářský. Beru to ale jako něco, na čem vědomě pracuju, protože mi záleží na kvalitě výsledku i na tom, aby věci fungovaly v praxi.`,
-      aboutP2: `Nejvíc si na sobě cením toho, že jsem extrémně univerzální pracovník. Zatím jsem nenarazil na oblast, kterou bych si nedokázal osvojit – nejsem nutně „dokonalý specialista“ na jednu úzkou disciplínu, ale umím nadprůměrně zastoupit široké spektrum činností a propojit je do funkčního celku. Ve volném čase mě baví sport, hlavně posilovna a volejbal, a jsem velký milovník zvířat.`,
+      aboutP1: `Baví mě hledat nové způsoby, jak věci dělat chytřeji a jednodušeji. Jsem zvědavý a ambiciózní samouk – rychle se učím, jsem flexibilní, kreativní a komunikativní.`,
+      aboutP2: `Nejvíc si na sobě cením toho, že jsem velmi univerzální pracovník. Zatím jsem nenarazil na oblast, kterou bych si nedokázal osvojit – nejsem nutně „dokonalý specialista“ na jednu úzkou disciplínu, ale umím nadprůměrně zastoupit široké spektrum činností a propojit je do funkčního celku. Ve volném čase mě baví sport, hlavně posilovna a volejbal, a jsem velký milovník zvířat.`,
 
       aboutKicker: "Zaměření",
       aboutLi1: "Analýza vzdělávacích potřeb a návrh školení",
@@ -20,7 +20,7 @@
       aboutLi5: "Zpětná vazba, testování a měření dopadu",
 
       skillsTitle: "PRACOVNÍ DOVEDNOSTI",
-      workTitle: "Ukázky práce",
+      workTitle: "Příklady práce",
       workNote: "",
       xpTitle: "Zkušenosti",
       xpNote: "",
@@ -36,8 +36,8 @@
       pdfBtn: "PDF",
 
       aboutTitle: "About me",
-      aboutP1: `I enjoy looking for new ways to do things smarter and more efficiently. I’m a curious, driven, and ambitious self-learner — I pick things up quickly and I’m flexible, creative, communicative, and proactive. At the same time, I’m aware of my weaker points: I can sometimes be a bit impulsive and detail-oriented to a fault. I see this as something I actively work on, because I care about quality and about making things work in real life.`,
-      aboutP2: `What I value most about myself is that I’m an extremely versatile professional. So far, I haven’t come across an area I couldn’t learn — I may not be a “perfect specialist” in one narrow field, but I can reliably cover a wide range of responsibilities at an above-average level and connect them into a functional whole. In my free time, I enjoy sports — especially the gym and volleyball — and I’m a big animal lover.`,
+      aboutP1: `I enjoy looking for new ways to do things smarter and more efficiently. I’m a curious and ambitious self-learner — I pick things up quickly and I’m flexible, creative, and communicative.`,
+      aboutP2: `What I value most about myself is that I’m a highly versatile professional. So far, I haven’t come across an area I couldn’t learn — I may not be a “perfect specialist” in one narrow field, but I can reliably cover a wide range of responsibilities at an above-average level and connect them into a functional whole. In my free time, I enjoy sports — especially the gym and volleyball — and I’m a big animal lover.`,
 
       aboutKicker: "Focus",
       aboutLi1: "Training needs analysis and program design",
@@ -47,7 +47,7 @@
       aboutLi5: "Feedback, assessments and impact measurement",
 
       skillsTitle: "SKILLS",
-      workTitle: "Selected work",
+      workTitle: "Work examples",
       workNote: "",
       xpTitle: "Experience",
       xpNote: "",
@@ -162,7 +162,7 @@
       {
         when: "2022 - Současnost",
         role: "Koordinátor vzdělávání",
-        meta: "Kompletní zastřešení vzdělávání ve firmě",
+        meta: "Direct Parcel Distribution",
         bullets: [
           "Realizace a tvorba vzdělávání ve firmě (hard/soft skills, onboarding).",
           "Koordinace a mentoring ~20 trenérů napříč ČR (metodika, standardy, školení trenérů).",
@@ -174,7 +174,7 @@
       {
         when: "2019 - 2022",
         role: "Vedoucí provozu",
-        meta: "Provoz & péče o kurýry",
+        meta: "Direct Parcel Distribution",
         bullets: [
           "Zastřešení péče o ~50 kurýrů (kvalita, procesy, standardy).",
           "Fakturace a odměňování, správa dokumentů a smluv.",
@@ -187,7 +187,7 @@
       {
         when: "2022 - Present",
         role: "Training Coordinator",
-        meta: "End-to-end training ownership",
+        meta: "Direct Parcel Distribution",
         bullets: [
           "Training delivery and creation across the company (hard/soft skills, onboarding).",
           "Coordination and mentoring of ~20 trainers across Czechia (methodology, standards, train-the-trainer).",
@@ -199,7 +199,7 @@
       {
         when: "2019 - 2022",
         role: "Operations Manager",
-        meta: "Operations & courier care",
+        meta: "Direct Parcel Distribution",
         bullets: [
           "Oversight of ~50 couriers (quality, processes, standards).",
           "Invoicing and compensation, document and contract administration.",
@@ -212,32 +212,12 @@
 
   const EDU = {
     cs: [
-      {
-        title: "Certifikovaný lektor dalšího vzdělávání",
-        school: "Certifikace",
-        type: "Ministerstvo školství",
-        years: "2024"
-      },
-      {
-        title: "Maturita — střední zdravotnická škola",
-        school: "Škola",
-        type: "Střední zdravotnická škola",
-        years: "2013–2017"
-      }
+      { title: "Certifikovaný lektor dalšího vzdělávání", school: "Certifikace", type: "Ministerstvo školství", years: "2024" },
+      { title: "Maturita — střední zdravotnická škola", school: "Škola", type: "Střední zdravotnická škola", years: "2013–2017" }
     ],
     en: [
-      {
-        title: "Certified Continuing Education Trainer",
-        school: "Certification",
-        type: "Ministry of Education",
-        years: "2024"
-      },
-      {
-        title: "High school diploma — Secondary medical school",
-        school: "School",
-        type: "Secondary Nursing School",
-        years: "2013–2017"
-      }
+      { title: "Certified Continuing Education Trainer", school: "Certification", type: "Ministry of Education", years: "2024" },
+      { title: "High school diploma — Secondary medical school", school: "School", type: "Secondary Nursing School", years: "2013–2017" }
     ]
   };
 
@@ -276,7 +256,6 @@
 
     nodes.forEach(btn => {
       if (btn.querySelector("img")) return;
-
       const label = (btn.dataset.label || btn.getAttribute("aria-label") || "").trim();
       const file = map.get(label.toLowerCase());
       if (!file) return;
@@ -298,7 +277,6 @@
       row.className = "eduItem";
 
       const left = document.createElement("div");
-
       const t = document.createElement("div");
       t.className = "eduTitle";
       t.textContent = item.title;
