@@ -14,6 +14,12 @@
 *{box-sizing:border-box}
 html,body{height:100%}
 
+/* ✅ vynutit světlý režim i pro UA (Safari/iOS) */
+html{
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+}
+
 /* když JS nastaví hidden, chceme jistotu, že element zmizí všude */
 [hidden]{display:none !important}
 
@@ -49,6 +55,7 @@ html[data-lang="en"] #printBtn{display:none}
   border:1px solid var(--line);
   background:rgba(255,255,255,.75);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding:10px 12px;
   border-radius:999px;
   font-weight:800;
@@ -152,6 +159,7 @@ html[data-lang="en"] #printBtn{display:none}
   border:1px solid rgba(176,123,123,.25);
   background:rgba(255,255,255,.78);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius:26px;
   padding:16px 16px;
 }
@@ -226,6 +234,7 @@ html[data-lang="en"] #printBtn{display:none}
   border:1px solid var(--line);
   background:rgba(255,255,255,.72);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius:22px;
   padding:14px 14px;
 }
@@ -296,11 +305,93 @@ html[data-lang="en"] #printBtn{display:none}
   .contactLine{width:100%;justify-content:center}
 }
 
+/* =========================
+   ✅ HARD PRINT/PDF FIX
+   (iOS Safari + ostatní)
+   ========================= */
 @media print{
   @page{ margin: 12mm; }
-  body{background:#fff}
-  .cvApp{padding:0}
-  .cvTopbar{display:none}
-  .cvSheet{box-shadow:none;border-radius:0;max-width:none}
-  .cvBg{opacity:.55}
+
+  /* vynutit světlý výstup + konzistentní barvy */
+  html, body{
+    background:#fff !important;
+    color:#111 !important;
+    color-scheme: light !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* odstranit “app” padding a UI */
+  .cvApp{padding:0 !important}
+  .cvTopbar{display:none !important}
+
+  /* papír bez stínů/zaoblení */
+  .cvSheet{
+    box-shadow:none !important;
+    border-radius:0 !important;
+    max-width:none !important;
+    background:#fff !important;
+    overflow:visible !important;
+  }
+
+  /* klíč: NEtisknout dekorativní pozadí,
+     protože Safari je někdy invertuje / změní */
+  .cvBg{display:none !important}
+
+  /* zrušit všechny gradient backgroundy v sekcích */
+  .cvHeader,
+  .cvLeft,
+  .cvRight{
+    background:#fff !important;
+  }
+
+  /* zrušit “glass” efekty (backdrop-filter) v printu */
+  .topBtn,
+  .summaryCard,
+  .rightBlock,
+  .tag{
+    backdrop-filter:none !important;
+    -webkit-backdrop-filter:none !important;
+  }
+
+  /* sjednotit backgroundy na bílé (ať nic nešedne/nerůžoví) */
+  .summaryCard,
+  .rightBlock,
+  .tag{
+    background:#fff !important;
+  }
+
+  /* zachovat čitelnost textů */
+  .nameLine,
+  .summary,
+  .barLabel,
+  .jobBullets,
+  .bullets{
+    color:#111 !important;
+  }
+
+  /* nechat akcent (nadpisy/role) – ale bez průhledností */
+  .roleLine,
+  .itemTitle,
+  .jobRole{
+    color: var(--accent) !important;
+  }
+
+  .jobTime{ color:#444 !important; }
+
+  /* linky (Safari je rád barví do modra) */
+  a, a:visited{
+    color:#111 !important;
+    text-decoration:none !important;
+  }
+
+  /* odstranit stíny, co by v PDF vypadaly jinak */
+  .photoFrame{ box-shadow:none !important; }
+
+  /* pojistka: ať se nic “nepřekreslí” průhlednostmi */
+  *{
+    text-shadow:none !important;
+    box-shadow:none !important;
+    filter:none !important;
+  }
 }
