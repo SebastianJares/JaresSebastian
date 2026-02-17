@@ -109,7 +109,14 @@
         tags: ["workshop", "praxe", "struktura"],
         meta: "",
         desc: "Navrhuji a vytvářím prezentace v PowerPointu, které nejen dobře vypadají, ale hlavně dávají smysl. Stavím je na jasné struktuře, konzistentní grafice a sdělení, které publikum rychle pochopí.",
-        bullets: []
+        bullets: [
+          "PowerPoint úroveň 1 a 2",
+          "Bezpečnost práce",
+          "Úvod do AI",
+          "Mezigenerační spolupráce",
+          "Vstupní školení",
+          "První pomoc"
+        ]
       },
       en: {
         kicker: "PowerPoint presentations",
@@ -118,7 +125,14 @@
         tags: ["workshop", "practice", "structure"],
         meta: "",
         desc: "I design and build PowerPoint presentations that not only look great, but also communicate clearly. I focus on strong structure, consistent visuals, and messages that audiences grasp quickly.",
-        bullets: []
+        bullets: [
+          "PowerPoint Level 1 & 2",
+          "Workplace safety",
+          "Introduction to AI",
+          "Intergenerational collaboration",
+          "Onboarding training",
+          "First aid"
+        ]
       }
     },
     w4: {
@@ -146,19 +160,19 @@
   const XP = {
     cs: [
       {
-        when: "Současnost",
+        when: "2022 - Současnost",
         role: "Koordinátor vzdělávání",
         meta: "Kompletní zastřešení vzdělávání ve firmě",
         bullets: [
-          "Kompletní zastřešení vzdělávání ve firmě (hard/soft skills, onboarding).",
-          "Vedení týmu ~20 trenérů napříč ČR (metodika, standardy, školení trenérů).",
+          "Realizace a tvorba vzdělávání ve firmě (hard/soft skills, onboarding).",
+          "Koordinace a mentoring ~20 trenérů napříč ČR (metodika, standardy, školení trenérů).",
           "Zpětná vazba, testovací nástroje a vyhodnocování dopadu školení.",
           "Modernizace a automatizace (skripty/šablony), využití AI v praxi.",
           "Edukativní obsah včetně grafiky (manuály, checklisty, komiks)."
         ]
       },
       {
-        when: "3 roky",
+        when: "2019 - 2022",
         role: "Vedoucí provozu",
         meta: "Provoz & péče o kurýry",
         bullets: [
@@ -171,19 +185,19 @@
     ],
     en: [
       {
-        when: "Present",
+        when: "2022 - Present",
         role: "Training Coordinator",
         meta: "End-to-end training ownership",
         bullets: [
-          "End-to-end training ownership (hard/soft skills, onboarding).",
-          "Leading a ~20-trainer team across Czechia (methodology, standards, train-the-trainer).",
+          "Training delivery and creation across the company (hard/soft skills, onboarding).",
+          "Coordination and mentoring of ~20 trainers across Czechia (methodology, standards, train-the-trainer).",
           "Feedback, assessment tools and training impact evaluation.",
           "Modernization and automation (scripts/templates), practical AI usage.",
           "Educational content including graphics (manuals, checklists, comics)."
         ]
       },
       {
-        when: "3 years",
+        when: "2019 - 2022",
         role: "Operations Manager",
         meta: "Operations & courier care",
         bullets: [
@@ -198,12 +212,32 @@
 
   const EDU = {
     cs: [
-      { title: "Certifikovaný lektor dalšího vzdělávání", school: "Certifikace", type: "Ministerstvo školství", years: "" },
-      { title: "Maturita — střední zdravotnická škola", school: "Škola", type: "Střední zdravotnická škola", years: "" }
+      {
+        title: "Certifikovaný lektor dalšího vzdělávání",
+        school: "Certifikace",
+        type: "Ministerstvo školství",
+        years: "2024"
+      },
+      {
+        title: "Maturita — střední zdravotnická škola",
+        school: "Škola",
+        type: "Střední zdravotnická škola",
+        years: "2013–2017"
+      }
     ],
     en: [
-      { title: "Certified Continuing Education Trainer", school: "Certification", type: "Ministry of Education", years: "" },
-      { title: "High school diploma — Secondary medical school", school: "School", type: "Secondary Nursing School", years: "" }
+      {
+        title: "Certified Continuing Education Trainer",
+        school: "Certification",
+        type: "Ministry of Education",
+        years: "2024"
+      },
+      {
+        title: "High school diploma — Secondary medical school",
+        school: "School",
+        type: "Secondary Nursing School",
+        years: "2013–2017"
+      }
     ]
   };
 
@@ -413,11 +447,9 @@
   }
 
   function setupReveal() {
-    // Když tohle neproběhne, prvky s "reveal" často zůstanou schované -> stránka vypadá mrtvá.
     const revealEls = Array.from(document.querySelectorAll("[data-reveal]"));
     const trails = Array.from(document.querySelectorAll("[data-trail]"));
 
-    // Fallback pro případ, že by IntersectionObserver selhal
     const showAll = () => {
       revealEls.forEach(el => el.classList.add("is-in"));
       trails.forEach(el => el.classList.add("is-drawn"));
@@ -576,13 +608,10 @@
 
       injectSkillIcons();
 
-      // safe applyLang
       const saved = localStorage.getItem("lang");
       applyLang(saved === "en" ? "en" : "cs");
     } catch (err) {
       console.error("❌ init crashed:", err);
-
-      // nouzově aspoň zobraz reveal věci, ať není stránka "prázdná"
       document.querySelectorAll("[data-reveal]").forEach(el => el.classList.add("is-in"));
       document.querySelectorAll("[data-trail]").forEach(el => el.classList.add("is-drawn"));
     }
@@ -610,7 +639,6 @@
     if (e.key === "Escape") closeLightbox();
   });
 
-  // defer by HTML, ale jistota i pro jiné vložení scriptu:
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init, { once: true });
   } else {
