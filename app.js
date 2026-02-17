@@ -139,20 +139,20 @@ aboutP2: `What I value most about myself is that I’m an extremely versatile pr
   const XP = {
     cs: [
       {
-        when: "2022 - současnost",
-        role: "DPD - Koordinátor vzdělávání",
+        when: "Současnost",
+        role: "Koordinátor vzdělávání",
         meta: "Kompletní zastřešení vzdělávání ve firmě",
         bullets: [
-          "Realizace a tvorba vzdělávání ve firmě (hard/soft skills, onboarding).",
-          "Koordinace a metodická podpora ~20 trenérů napříč ČR (metodika, standardy, školení trenérů).",
+          "Kompletní zastřešení vzdělávání ve firmě (hard/soft skills, onboarding).",
+          "Vedení týmu ~20 trenérů napříč ČR (metodika, standardy, školení trenérů).",
           "Zpětná vazba, testovací nástroje a vyhodnocování dopadu školení.",
           "Modernizace a automatizace (skripty/šablony), využití AI v praxi.",
           "Edukativní obsah včetně grafiky (manuály, checklisty, komiks)."
         ]
       },
       {
-        when: 2019 - 2022",
-        role: "DPD - Vedoucí provozu",
+        when: "3 roky",
+        role: "Vedoucí provozu",
         meta: "Provoz & péče o kurýry",
         bullets: [
           "Zastřešení péče o ~50 kurýrů (kvalita, procesy, standardy).",
@@ -192,13 +192,13 @@ aboutP2: `What I value most about myself is that I’m an extremely versatile pr
   const EDU = {
     cs: [
       {
-        title: "Certifikovaný lektor dalšího vzdělávání - 2024",
+        title: "Certifikovaný lektor dalšího vzdělávání",
         school: "Certifikace",
         type: "Ministerstvo školství",
         years: ""
       },
       {
-        title: "Maturita — střední zdravotnická škola - 2013-2017",
+        title: "Maturita — střední zdravotnická škola",
         school: "Škola",
         type: "Střední zdravotnická škola",
         years: ""
@@ -584,5 +584,8 @@ aboutP2: `What I value most about myself is that I’m an extremely versatile pr
   injectSkillIcons();
 
   const saved = localStorage.getItem("lang");
+  applyLang(saved === "en" ? "en" : "cs");
+})();
+
   applyLang(saved === "en" ? "en" : "cs");
 })();
