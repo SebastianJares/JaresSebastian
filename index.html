@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Caveat:wght@600;700&family=League+Spartan:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20260217-2" />
+  <link rel="stylesheet" href="styles.css?v=20260217-3" />
 </head>
 
 <body data-lang="cs">
@@ -105,7 +105,8 @@
           </span>
         </a>
 
-        <a class="orbit__item" href="#work" data-label-cs="Ukázky práce" data-label-en="Work" data-label="Ukázky práce" aria-label="Ukázky práce">
+        <!-- ✅ přejmenováno Ukázky práce -> Příklady práce -->
+        <a class="orbit__item" href="#work" data-label-cs="Příklady práce" data-label-en="Work examples" data-label="Příklady práce" aria-label="Příklady práce">
           <span class="orbit__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24">
               <path d="M9 21h6v-1H9v1z"></path>
@@ -182,16 +183,25 @@
         <button class="skillLogo" type="button" data-label="Canva" aria-label="Canva">
           <img src="assets/icons/canva-icon.png" alt="" loading="lazy">
         </button>
-
         <button class="skillLogo" type="button" data-label="Office 365" aria-label="Office 365">
           <img src="assets/icons/office-365-icon.png" alt="" loading="lazy">
         </button>
       </div>
     </section>
 
-    <section class="work" id="work" aria-label="Ukázky práce">
+    <!-- ✅ 3) Zkušenosti přesuň nad Příklady práce -->
+    <section class="xp" id="experience" aria-label="Zkušenosti">
+      <div class="xp__head">
+        <h2 class="xp__title" data-i18n="xpTitle">Zkušenosti</h2>
+        <div class="xp__note" data-i18n="xpNote"></div>
+      </div>
+      <div class="xp__list" id="xpList"></div>
+    </section>
+
+    <!-- ✅ 2) Ukázky práce -> Příklady práce -->
+    <section class="work" id="work" aria-label="Příklady práce">
       <div class="work__head">
-        <h2 class="work__title" data-i18n="workTitle">Ukázky práce</h2>
+        <h2 class="work__title" data-i18n="workTitle">Příklady práce</h2>
         <div class="work__note" data-i18n="workNote"></div>
       </div>
 
@@ -199,7 +209,7 @@
 
         <article class="workRow reveal" data-reveal data-work="w1">
           <button class="workMedia" type="button" data-work="w1" aria-label="Otevřít" data-img="assets/work/01-social.jpg">
-            <img src="assets/work/IMG_1421.png" alt="" loading="lazy">
+            <img src="assets/work/Návrh bez názvu.png" alt="" loading="lazy">
           </button>
           <div class="workText" data-work="w1">
             <div class="workKicker"></div>
@@ -286,14 +296,6 @@
       </div>
     </section>
 
-    <section class="xp" id="experience" aria-label="Zkušenosti">
-      <div class="xp__head">
-        <h2 class="xp__title" data-i18n="xpTitle">Zkušenosti</h2>
-        <div class="xp__note" data-i18n="xpNote"></div>
-      </div>
-      <div class="xp__list" id="xpList"></div>
-    </section>
-
     <section class="sectionCard reveal" data-reveal id="education">
       <div class="eduHead">
         <h2 data-i18n="eduTitle">Vzdělání</h2>
@@ -324,7 +326,6 @@
     </footer>
   </main>
 
-  <script src="app.js?v=20260217-2" defer></script>
+  <script src="app.js?v=20260217-3" defer></script>
 </body>
 </html>
-
