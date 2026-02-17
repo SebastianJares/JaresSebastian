@@ -192,13 +192,13 @@ aboutP2: `What I value most about myself is that I’m an extremely versatile pr
   const EDU = {
     cs: [
       {
-        title: "Certifikovaný lektor dalšího vzdělávání",
+        title: "Certifikovaný lektor dalšího vzdělávání - 2024",
         school: "Certifikace",
         type: "Ministerstvo školství",
         years: ""
       },
       {
-        title: "Maturita — střední zdravotnická škola",
+        title: "Maturita — střední zdravotnická škola - 2013-2017",
         school: "Škola",
         type: "Střední zdravotnická škola",
         years: ""
