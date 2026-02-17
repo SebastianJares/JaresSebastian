@@ -1,11 +1,16 @@
 (() => {
+  "use strict";
+
+  console.log("✅ app.js loaded");
+
   const I18N = {
     cs: {
       role: "L&D specialista",
+      pdfBtn: "PDF",
 
       aboutTitle: "O mně",
       aboutP1: `Baví mě hledat nové způsoby, jak věci dělat chytřeji a jednodušeji. Jsem zvědavý, dravý a ambiciózní samouk – rychle se učím, jsem flexibilní, kreativní a komunikativní. Zároveň jsem si vědom i slabších stránek: občas dokážu být zbrklý a puntičkářský. Beru to ale jako něco, na čem vědomě pracuju, protože mi záleží na kvalitě výsledku i na tom, aby věci fungovaly v praxi.`,
-aboutP2: `Nejvíc si na sobě cením toho, že jsem extrémně univerzální pracovník. Zatím jsem nenarazil na oblast, kterou bych si nedokázal osvojit – nejsem nutně „dokonalý specialista“ na jednu úzkou disciplínu, ale umím nadprůměrně zastoupit široké spektrum činností a propojit je do funkčního celku. Ve volném čase mě baví sport, hlavně posilovna a volejbal, a jsem velký milovník zvířat.`,
+      aboutP2: `Nejvíc si na sobě cením toho, že jsem extrémně univerzální pracovník. Zatím jsem nenarazil na oblast, kterou bych si nedokázal osvojit – nejsem nutně „dokonalý specialista“ na jednu úzkou disciplínu, ale umím nadprůměrně zastoupit široké spektrum činností a propojit je do funkčního celku. Ve volném čase mě baví sport, hlavně posilovna a volejbal, a jsem velký milovník zvířat.`,
 
       aboutKicker: "Zaměření",
       aboutLi1: "Analýza vzdělávacích potřeb a návrh školení",
@@ -28,10 +33,12 @@ aboutP2: `Nejvíc si na sobě cením toho, že jsem extrémně univerzální pra
     },
     en: {
       role: "L&D Specialist",
+      pdfBtn: "PDF",
 
       aboutTitle: "About me",
       aboutP1: `I enjoy looking for new ways to do things smarter and more efficiently. I’m a curious, driven, and ambitious self-learner — I pick things up quickly and I’m flexible, creative, communicative, and proactive. At the same time, I’m aware of my weaker points: I can sometimes be a bit impulsive and detail-oriented to a fault. I see this as something I actively work on, because I care about quality and about making things work in real life.`,
-aboutP2: `What I value most about myself is that I’m an extremely versatile professional. So far, I haven’t come across an area I couldn’t learn — I may not be a “perfect specialist” in one narrow field, but I can reliably cover a wide range of responsibilities at an above-average level and connect them into a functional whole. In my free time, I enjoy sports — especially the gym and volleyball — and I’m a big animal lover.`,
+      aboutP2: `What I value most about myself is that I’m an extremely versatile professional. So far, I haven’t come across an area I couldn’t learn — I may not be a “perfect specialist” in one narrow field, but I can reliably cover a wide range of responsibilities at an above-average level and connect them into a functional whole. In my free time, I enjoy sports — especially the gym and volleyball — and I’m a big animal lover.`,
+
       aboutKicker: "Focus",
       aboutLi1: "Training needs analysis and program design",
       aboutLi2: "Close collaboration with managers and alignment of priorities",
@@ -191,36 +198,15 @@ aboutP2: `What I value most about myself is that I’m an extremely versatile pr
 
   const EDU = {
     cs: [
-      {
-        title: "Certifikovaný lektor dalšího vzdělávání",
-        school: "Certifikace",
-        type: "Ministerstvo školství",
-        years: ""
-      },
-      {
-        title: "Maturita — střední zdravotnická škola",
-        school: "Škola",
-        type: "Střední zdravotnická škola",
-        years: ""
-      }
+      { title: "Certifikovaný lektor dalšího vzdělávání", school: "Certifikace", type: "Ministerstvo školství", years: "" },
+      { title: "Maturita — střední zdravotnická škola", school: "Škola", type: "Střední zdravotnická škola", years: "" }
     ],
     en: [
-      {
-        title: "Certified Continuing Education Trainer",
-        school: "Certification",
-        type: "Ministry of Education",
-        years: ""
-      },
-      {
-        title: "High school diploma — Secondary medical school",
-        school: "School",
-        type: "Secondary Nursing School",
-        years: ""
-      }
+      { title: "Certified Continuing Education Trainer", school: "Certification", type: "Ministry of Education", years: "" },
+      { title: "High school diploma — Secondary medical school", school: "School", type: "Secondary Nursing School", years: "" }
     ]
   };
 
-  // fallback mapping if you ever remove <img> from skill buttons
   const SKILL_ICONS = [
     { label: "Unitiy engine", file: "photoshop.png" },
     { label: "Notion", file: "illustrator.png" },
@@ -231,7 +217,25 @@ aboutP2: `What I value most about myself is that I’m an extremely versatile pr
     { label: "Canva", file: "figma.png" }
   ];
 
-  function injectSkillIcons(){
+  const cursorTip = document.getElementById("cursorTip");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightboxImg");
+  const lightboxTitle = document.getElementById("lightboxTitle");
+  const lightboxMeta = document.getElementById("lightboxMeta");
+  const lightboxDesc = document.getElementById("lightboxDesc");
+  const lightboxList = document.getElementById("lightboxList");
+  const xpList = document.getElementById("xpList");
+  const eduList = document.getElementById("eduList");
+
+  const orbit = document.querySelector(".orbit");
+  const photo = document.querySelector(".orbit__photo");
+  const items = Array.from(document.querySelectorAll(".orbit__item"));
+  const fillPath = document.querySelector(".orbit__arcFill");
+  const basePath = document.querySelector(".orbit__arcBase");
+
+  let revealObserver = null;
+
+  function injectSkillIcons() {
     const map = new Map(SKILL_ICONS.map(x => [x.label.toLowerCase(), x.file]));
     const nodes = Array.from(document.querySelectorAll(".skillLogo"));
     if (nodes.length === 0) return;
@@ -244,7 +248,6 @@ aboutP2: `What I value most about myself is that I’m an extremely versatile pr
       if (!file) return;
 
       btn.innerHTML = "";
-
       const img = document.createElement("img");
       img.src = `assets/icons/${file}`;
       img.alt = "";
@@ -253,189 +256,42 @@ aboutP2: `What I value most about myself is that I’m an extremely versatile pr
     });
   }
 
-  const cursorTip = document.getElementById("cursorTip");
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImg = document.getElementById("lightboxImg");
-  const lightboxTitle = document.getElementById("lightboxTitle");
-  const lightboxMeta = document.getElementById("lightboxMeta");
-  const lightboxDesc = document.getElementById("lightboxDesc");
-  const lightboxList = document.getElementById("lightboxList");
-  const xpList = document.getElementById("xpList");
-  const eduList = document.getElementById("eduList");
-
-  function renderEdu(lang){
+  function renderEdu(lang) {
     if (!eduList) return;
     eduList.innerHTML = "";
-    EDU[lang].forEach(item => {
+    (EDU[lang] || []).forEach(item => {
       const row = document.createElement("div");
       row.className = "eduItem";
+
       const left = document.createElement("div");
+
       const t = document.createElement("div");
       t.className = "eduTitle";
       t.textContent = item.title;
+
       const s = document.createElement("div");
       s.className = "eduSchool";
       s.textContent = item.school;
+
       const ty = document.createElement("div");
       ty.className = "eduType";
       ty.textContent = item.type;
+
       left.appendChild(t);
       left.appendChild(s);
       left.appendChild(ty);
+
       const years = document.createElement("div");
       years.className = "eduYears";
       years.textContent = item.years;
+
       row.appendChild(left);
       row.appendChild(years);
       eduList.appendChild(row);
     });
   }
 
-  function applyLang(lang) {
-    document.body.dataset.lang = lang;
-    document.documentElement.lang = lang;
-
-    document.querySelectorAll("[data-i18n]").forEach(el => {
-      const key = el.getAttribute("data-i18n");
-      if (I18N[lang][key] != null) el.textContent = I18N[lang][key];
-    });
-
-    if (cursorTip) cursorTip.textContent = I18N[lang].open;
-
-    document.querySelectorAll("[data-label-cs][data-label-en]").forEach(el => {
-      el.dataset.label = lang === "en" ? el.dataset.labelEn : el.dataset.labelCs;
-    });
-
-    document.querySelectorAll(".workRow[data-work]").forEach(row => {
-      const id = row.dataset.work;
-      const data = WORK[id]?.[lang];
-      if (!data) return;
-
-      const kicker = row.querySelector(".workKicker");
-      const title = row.querySelector(".workH");
-      const desc = row.querySelector(".workP");
-      const tagsWrap = row.querySelector(".workTags");
-      const btn = row.querySelector(".workMedia");
-      const img = btn ? btn.querySelector("img") : null;
-
-      if (kicker) kicker.textContent = data.kicker;
-      if (title) title.textContent = data.title;
-      if (desc) desc.textContent = data.long;
-
-      if (tagsWrap) {
-        tagsWrap.innerHTML = "";
-        data.tags.forEach(t => {
-          const s = document.createElement("span");
-          s.className = "tag";
-          s.textContent = t;
-          tagsWrap.appendChild(s);
-        });
-      }
-
-      if (btn) {
-        btn.dataset.title = data.title;
-        btn.dataset.meta = data.meta;
-        btn.dataset.desc = data.desc;
-        btn.dataset.bullets = (data.bullets || []).join("|");
-        btn.setAttribute("aria-label", `${I18N[lang].open}: ${data.title}`);
-      }
-
-      if (img) img.alt = data.title;
-    });
-
-    if (xpList) {
-      xpList.innerHTML = "";
-      XP[lang].forEach(item => {
-        const card = document.createElement("article");
-        card.className = "xpCard reveal";
-        card.setAttribute("data-reveal", "");
-
-        const grid = document.createElement("div");
-        grid.className = "xpCard__grid";
-
-        const left = document.createElement("div");
-        const when = document.createElement("div");
-        when.className = "xpWhen";
-        when.textContent = item.when;
-
-        const ul = document.createElement("ul");
-        ul.className = "xpBullets";
-        item.bullets.forEach(b => {
-          const li = document.createElement("li");
-          li.textContent = b;
-          ul.appendChild(li);
-        });
-
-        left.appendChild(when);
-        left.appendChild(ul);
-
-        const right = document.createElement("div");
-        right.className = "xpRight";
-        const role = document.createElement("div");
-        role.className = "xpRole";
-        role.textContent = item.role;
-        const meta = document.createElement("div");
-        meta.className = "xpMeta";
-        meta.textContent = item.meta;
-
-        right.appendChild(role);
-        right.appendChild(meta);
-
-        grid.appendChild(left);
-        grid.appendChild(right);
-        card.appendChild(grid);
-        xpList.appendChild(card);
-      });
-    }
-
-    renderEdu(lang);
-    setupReveal();
-    localStorage.setItem("lang", lang);
-
-    injectSkillIcons();
-  }
-
-  function openLightbox(btn) {
-    if (!lightbox || !lightboxImg) return;
-
-    const smallImg = btn.querySelector("img");
-    const src = (smallImg && smallImg.src) ? smallImg.src : (btn.getAttribute("data-img") || "");
-
-    lightboxImg.src = src;
-
-    lightboxImg.alt = btn.dataset.title || "";
-    if (lightboxTitle) lightboxTitle.textContent = btn.dataset.title || "";
-    if (lightboxMeta) lightboxMeta.textContent = btn.dataset.meta || "";
-    if (lightboxDesc) lightboxDesc.textContent = btn.dataset.desc || "";
-    if (lightboxList) {
-      lightboxList.innerHTML = "";
-      const parts = (btn.dataset.bullets || "").split("|").map(s => s.trim()).filter(Boolean);
-      parts.forEach(t => {
-        const li = document.createElement("li");
-        li.textContent = t;
-        lightboxList.appendChild(li);
-      });
-    }
-    lightbox.classList.add("is-open");
-    lightbox.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeLightbox() {
-    if (!lightbox || !lightboxImg) return;
-    lightbox.classList.remove("is-open");
-    lightbox.setAttribute("aria-hidden", "true");
-    lightboxImg.src = "";
-    document.body.style.overflow = "";
-  }
-
-  const orbit = document.querySelector(".orbit");
-  const photo = document.querySelector(".orbit__photo");
-  const items = Array.from(document.querySelectorAll(".orbit__item"));
-  const fillPath = document.querySelector(".orbit__arcFill");
-  const basePath = document.querySelector(".orbit__arcBase");
-
-  function setArcProgress(progress){
+  function setArcProgress(progress) {
     if (!fillPath) return;
     const L = Number(fillPath.dataset.len || 0);
     if (!L) return;
@@ -466,7 +322,7 @@ aboutP2: `What I value most about myself is that I’m an extremely versatile pr
       el.dataset.progress = String(t);
     });
 
-    if (fillPath && basePath){
+    if (fillPath && basePath && typeof basePath.getTotalLength === "function") {
       const L = basePath.getTotalLength();
       fillPath.style.strokeDasharray = `0 ${L}`;
       fillPath.dataset.len = String(L);
@@ -482,6 +338,41 @@ aboutP2: `What I value most about myself is that I’m an extremely versatile pr
       el.addEventListener("mouseleave", off);
       el.addEventListener("blur", off);
     });
+  }
+
+  function openLightbox(btn) {
+    if (!lightbox || !lightboxImg) return;
+
+    const smallImg = btn.querySelector("img");
+    const src = (smallImg && smallImg.src) ? smallImg.src : (btn.getAttribute("data-img") || "");
+    lightboxImg.src = src;
+
+    lightboxImg.alt = btn.dataset.title || "";
+    if (lightboxTitle) lightboxTitle.textContent = btn.dataset.title || "";
+    if (lightboxMeta) lightboxMeta.textContent = btn.dataset.meta || "";
+    if (lightboxDesc) lightboxDesc.textContent = btn.dataset.desc || "";
+
+    if (lightboxList) {
+      lightboxList.innerHTML = "";
+      const parts = (btn.dataset.bullets || "").split("|").map(s => s.trim()).filter(Boolean);
+      parts.forEach(t => {
+        const li = document.createElement("li");
+        li.textContent = t;
+        lightboxList.appendChild(li);
+      });
+    }
+
+    lightbox.classList.add("is-open");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeLightbox() {
+    if (!lightbox || !lightboxImg) return;
+    lightbox.classList.remove("is-open");
+    lightbox.setAttribute("aria-hidden", "true");
+    lightboxImg.src = "";
+    document.body.style.overflow = "";
   }
 
   function setupWork() {
@@ -521,29 +412,147 @@ aboutP2: `What I value most about myself is that I’m an extremely versatile pr
     });
   }
 
-  let revealObserver = null;
-
   function setupReveal() {
-    if (revealObserver) revealObserver.disconnect();
-
+    // Když tohle neproběhne, prvky s "reveal" často zůstanou schované -> stránka vypadá mrtvá.
     const revealEls = Array.from(document.querySelectorAll("[data-reveal]"));
     const trails = Array.from(document.querySelectorAll("[data-trail]"));
 
-    revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const el = entry.target;
-        if (el.hasAttribute("data-trail")) {
-          if (entry.isIntersecting) el.classList.add("is-drawn");
-          else el.classList.remove("is-drawn");
-          return;
-        }
-        if (entry.isIntersecting) el.classList.add("is-in");
-        else el.classList.remove("is-in");
-      });
-    }, { threshold: 0.18 });
+    // Fallback pro případ, že by IntersectionObserver selhal
+    const showAll = () => {
+      revealEls.forEach(el => el.classList.add("is-in"));
+      trails.forEach(el => el.classList.add("is-drawn"));
+    };
 
-    revealEls.forEach(el => revealObserver.observe(el));
-    trails.forEach(el => revealObserver.observe(el));
+    try {
+      if (revealObserver) revealObserver.disconnect();
+      if (!("IntersectionObserver" in window)) {
+        showAll();
+        return;
+      }
+
+      revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const el = entry.target;
+          if (el.hasAttribute("data-trail")) {
+            if (entry.isIntersecting) el.classList.add("is-drawn");
+            else el.classList.remove("is-drawn");
+            return;
+          }
+          if (entry.isIntersecting) el.classList.add("is-in");
+          else el.classList.remove("is-in");
+        });
+      }, { threshold: 0.18 });
+
+      revealEls.forEach(el => revealObserver.observe(el));
+      trails.forEach(el => revealObserver.observe(el));
+    } catch (err) {
+      console.error("setupReveal failed:", err);
+      showAll();
+    }
+  }
+
+  function applyLang(lang) {
+    document.body.dataset.lang = lang;
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      const value = I18N[lang] ? I18N[lang][key] : null;
+      if (value != null) el.textContent = value;
+    });
+
+    if (cursorTip) cursorTip.textContent = (I18N[lang] && I18N[lang].open) ? I18N[lang].open : "Open";
+
+    document.querySelectorAll("[data-label-cs][data-label-en]").forEach(el => {
+      el.dataset.label = lang === "en" ? el.dataset.labelEn : el.dataset.labelCs;
+    });
+
+    document.querySelectorAll(".workRow[data-work]").forEach(row => {
+      const id = row.dataset.work;
+      const data = WORK[id] && WORK[id][lang] ? WORK[id][lang] : null;
+      if (!data) return;
+
+      const kicker = row.querySelector(".workKicker");
+      const title = row.querySelector(".workH");
+      const desc = row.querySelector(".workP");
+      const tagsWrap = row.querySelector(".workTags");
+      const btn = row.querySelector(".workMedia");
+      const img = btn ? btn.querySelector("img") : null;
+
+      if (kicker) kicker.textContent = data.kicker;
+      if (title) title.textContent = data.title;
+      if (desc) desc.textContent = data.long;
+
+      if (tagsWrap) {
+        tagsWrap.innerHTML = "";
+        (data.tags || []).forEach(t => {
+          const s = document.createElement("span");
+          s.className = "tag";
+          s.textContent = t;
+          tagsWrap.appendChild(s);
+        });
+      }
+
+      if (btn) {
+        btn.dataset.title = data.title;
+        btn.dataset.meta = data.meta;
+        btn.dataset.desc = data.desc;
+        btn.dataset.bullets = (data.bullets || []).join("|");
+        btn.setAttribute("aria-label", `${I18N[lang].open}: ${data.title}`);
+      }
+
+      if (img) img.alt = data.title;
+    });
+
+    if (xpList) {
+      xpList.innerHTML = "";
+      (XP[lang] || []).forEach(item => {
+        const card = document.createElement("article");
+        card.className = "xpCard reveal";
+        card.setAttribute("data-reveal", "");
+
+        const grid = document.createElement("div");
+        grid.className = "xpCard__grid";
+
+        const left = document.createElement("div");
+        const when = document.createElement("div");
+        when.className = "xpWhen";
+        when.textContent = item.when;
+
+        const ul = document.createElement("ul");
+        ul.className = "xpBullets";
+        (item.bullets || []).forEach(b => {
+          const li = document.createElement("li");
+          li.textContent = b;
+          ul.appendChild(li);
+        });
+
+        left.appendChild(when);
+        left.appendChild(ul);
+
+        const right = document.createElement("div");
+        right.className = "xpRight";
+        const role = document.createElement("div");
+        role.className = "xpRole";
+        role.textContent = item.role;
+        const meta = document.createElement("div");
+        meta.className = "xpMeta";
+        meta.textContent = item.meta;
+
+        right.appendChild(role);
+        right.appendChild(meta);
+
+        grid.appendChild(left);
+        grid.appendChild(right);
+        card.appendChild(grid);
+        xpList.appendChild(card);
+      });
+    }
+
+    renderEdu(lang);
+    setupReveal();
+    localStorage.setItem("lang", lang);
+    injectSkillIcons();
   }
 
   function setupLangToggle() {
@@ -552,17 +561,47 @@ aboutP2: `What I value most about myself is that I’m an extremely versatile pr
     });
   }
 
+  function init() {
+    try {
+      const yearEl = document.getElementById("year");
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+      setupReveal();
+      positionItems();
+      window.addEventListener("resize", positionItems);
+
+      setupOrbitHover();
+      setupWork();
+      setupLangToggle();
+
+      injectSkillIcons();
+
+      // safe applyLang
+      const saved = localStorage.getItem("lang");
+      applyLang(saved === "en" ? "en" : "cs");
+    } catch (err) {
+      console.error("❌ init crashed:", err);
+
+      // nouzově aspoň zobraz reveal věci, ať není stránka "prázdná"
+      document.querySelectorAll("[data-reveal]").forEach(el => el.classList.add("is-in"));
+      document.querySelectorAll("[data-trail]").forEach(el => el.classList.add("is-drawn"));
+    }
+  }
+
   document.addEventListener("click", (e) => {
-    const closeEl = e.target.closest("[data-close]");
+    const target = (e.target instanceof Element) ? e.target : (e.target && e.target.parentElement ? e.target.parentElement : null);
+    if (!target) return;
+
+    const closeEl = target.closest("[data-close]");
     if (closeEl) closeLightbox();
 
-    const a = e.target.closest("a[href^='#']");
+    const a = target.closest("a[href^='#']");
     if (a) {
       const id = a.getAttribute("href");
-      const target = document.querySelector(id);
-      if (target) {
+      const targetEl = document.querySelector(id);
+      if (targetEl) {
         e.preventDefault();
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
   });
@@ -571,18 +610,10 @@ aboutP2: `What I value most about myself is that I’m an extremely versatile pr
     if (e.key === "Escape") closeLightbox();
   });
 
-  const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  positionItems();
-  window.addEventListener("resize", positionItems);
-
-  setupOrbitHover();
-  setupWork();
-  setupLangToggle();
-
-  injectSkillIcons();
-
-  const saved = localStorage.getItem("lang");
-  applyLang(saved === "en" ? "en" : "cs");
+  // defer by HTML, ale jistota i pro jiné vložení scriptu:
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init, { once: true });
+  } else {
+    init();
+  }
 })();
